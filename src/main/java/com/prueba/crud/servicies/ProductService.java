@@ -1,6 +1,7 @@
 package com.prueba.crud.servicies;
 
 import com.prueba.crud.entities.ProductModel;
+import com.prueba.crud.exceptions.ResourceNotFoundException;
 import com.prueba.crud.repositories.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class ProductService {
     }
 
     public ProductModel updateProductById(ProductModel request, Long id) {
-        ProductModel product = productRepository.findById(id).get();
+        ProductModel product = productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product", id));
 
         product.setName(request.getName());
         product.setQuantity(request.getQuantity());
