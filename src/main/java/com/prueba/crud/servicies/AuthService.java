@@ -3,6 +3,7 @@ package com.prueba.crud.servicies;
 import com.prueba.crud.auth.AuthResponse;
 import com.prueba.crud.auth.LoginRequest;
 import com.prueba.crud.auth.RegisterRequest;
+import com.prueba.crud.exceptions.ResourceNotFoundException;
 import com.prueba.crud.jwt.JwtService;
 import com.prueba.crud.repositories.IUserRepository;
 import com.prueba.crud.user.Role;
@@ -30,7 +31,7 @@ public class AuthService {
 
     public AuthResponse login(LoginRequest loginRequest) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getName(), loginRequest.getPassword()));
-        UserModel user = userRepository.findByName(loginRequest.getName()).orElseThrow();
+        UserModel user = userRepository.findByName(loginRequest.getName()).orElseThrow(() -> new ResourceNotFoundException("User not found: " + loginRequest.getName()));
         String token = jwtService.getToken(user);
         return AuthResponse.builder()
                 .token(token)

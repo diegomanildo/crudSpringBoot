@@ -1,6 +1,7 @@
 package com.prueba.crud.servicies;
 
 import com.prueba.crud.entities.UserModel;
+import com.prueba.crud.exceptions.ResourceNotFoundException;
 import com.prueba.crud.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class UserService {
     }
 
     public UserModel updateUserById(UserModel request, Long id) {
-        UserModel user = userRepository.findById(id).get();
+        UserModel user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", id));
 
         user.setName(request.getName());
 
