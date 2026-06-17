@@ -1,4 +1,4 @@
-package com.prueba.crud.product;
+package com.prueba.crud.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,5 +1,7 @@
-package com.prueba.crud.user;
+package com.prueba.crud.controllers;
 
+import com.prueba.crud.entities.UserModel;
+import com.prueba.crud.servicies.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

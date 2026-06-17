@@ -1,6 +1,6 @@
 package com.prueba.crud.jwt;
 
-import com.prueba.crud.user.UserModel;
+import com.prueba.crud.entities.UserModel;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;

@@ -1,5 +1,6 @@
-package com.prueba.crud.user;
+package com.prueba.crud.entities;
 
+import com.prueba.crud.user.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

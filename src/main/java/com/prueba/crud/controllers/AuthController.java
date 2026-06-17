@@ -1,5 +1,9 @@
-package com.prueba.crud.auth;
+package com.prueba.crud.controllers;
 
+import com.prueba.crud.auth.AuthResponse;
+import com.prueba.crud.servicies.AuthService;
+import com.prueba.crud.auth.LoginRequest;
+import com.prueba.crud.auth.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

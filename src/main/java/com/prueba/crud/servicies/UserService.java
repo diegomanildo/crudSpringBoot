@@ -1,5 +1,7 @@
-package com.prueba.crud.user;
+package com.prueba.crud.servicies;
 
+import com.prueba.crud.entities.UserModel;
+import com.prueba.crud.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
