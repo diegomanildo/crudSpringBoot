@@ -4,6 +4,7 @@ import com.prueba.crud.entities.UserModel;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,9 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    private static final String SECRET_KEY = "o0iwretuoqwreiutoiqkssjdvacok12345678901234"; // mínimo 32 chars
+
+    @Value("${jwt.secret}")
+    private String secretKey;
 
     public String getToken(UserModel user) {
         return getToken(new HashMap<>(), user);
@@ -31,7 +34,7 @@ public class JwtService {
     }
 
     private SecretKey getKey() {
-        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+        return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
     public String getNameFromToken(String token) {
