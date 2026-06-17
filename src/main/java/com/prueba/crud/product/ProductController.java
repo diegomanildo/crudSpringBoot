@@ -1,7 +1,5 @@
-package com.prueba.crud.controllers;
+package com.prueba.crud.product;
 
-import com.prueba.crud.models.ProductModel;
-import com.prueba.crud.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
