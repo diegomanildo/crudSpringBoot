@@ -1,5 +1,7 @@
 package com.prueba.crud.product;
 
+import com.prueba.crud.entities.ProductModel;
+import com.prueba.crud.repositories.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
 package com.prueba.crud.config;
 
-import com.prueba.crud.user.IUserRepository;
+import com.prueba.crud.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

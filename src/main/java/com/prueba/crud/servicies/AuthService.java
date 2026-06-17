@@ -1,9 +1,12 @@
-package com.prueba.crud.auth;
+package com.prueba.crud.servicies;
 
+import com.prueba.crud.auth.AuthResponse;
+import com.prueba.crud.auth.LoginRequest;
+import com.prueba.crud.auth.RegisterRequest;
 import com.prueba.crud.jwt.JwtService;
-import com.prueba.crud.user.IUserRepository;
+import com.prueba.crud.repositories.IUserRepository;
 import com.prueba.crud.user.Role;
-import com.prueba.crud.user.UserModel;
+import com.prueba.crud.entities.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
