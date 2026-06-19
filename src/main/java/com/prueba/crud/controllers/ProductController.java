@@ -1,47 +1,46 @@
 package com.prueba.crud.controllers;
 
-import com.prueba.crud.entities.ProductModel;
+import com.prueba.crud.product.ProductRequest;
+import com.prueba.crud.product.ProductResponse;
 import com.prueba.crud.servicies.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/product")
+@RequiredArgsConstructor
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
     @GetMapping
-    public ArrayList<ProductModel> getProducts() {
-        return productService.getProducts();
+    public ResponseEntity<List<ProductResponse>> getProducts() {
+        return ResponseEntity.ok(productService.getProducts());
     }
 
     @PostMapping
-    public ProductModel saveProduct(@RequestBody ProductModel product) {
-        return productService.saveProduct(product);
+    public ResponseEntity<ProductResponse> saveProduct(@RequestBody ProductRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.saveProduct(request));
     }
 
-    @GetMapping(path = "/{id}")
-    public Optional<ProductModel> getProductById(@PathVariable("id") Long id) {
-        return productService.getProductById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) {
+        return ResponseEntity.ok(productService.getProductById(id));
     }
 
-    @PutMapping(path = "/{id}")
-    public ProductModel updateProductById(@RequestBody ProductModel request, @PathVariable("id") Long id) {
-        return productService.updateProductById(request, id);
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductResponse> updateProductById(
+            @RequestBody ProductRequest request, @PathVariable Long id) {
+        return ResponseEntity.ok(productService.updateProductById(request, id));
     }
 
-    @DeleteMapping(path = "/{id}")
-    public String deleteProductById(@PathVariable("id") Long id) {
-        boolean ok = productService.deleteProductById(id);
-        if (ok) {
-            return "Product with id " + id + " deleted";
-        } else {
-            return "ERROR: Product with id " + id + " could not be deleted";
-        }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProductById(@PathVariable Long id) {
+        productService.deleteProductById(id);
+        return ResponseEntity.noContent().build();
     }
 }

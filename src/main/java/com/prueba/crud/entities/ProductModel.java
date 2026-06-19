@@ -9,6 +9,7 @@ import lombok.Setter;
 public class ProductModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Long id;
 
 //    @Column <- no hace falta pero estaria bueno
