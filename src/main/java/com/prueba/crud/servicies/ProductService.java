@@ -2,45 +2,38 @@ package com.prueba.crud.servicies;
 
 import com.prueba.crud.entities.ProductModel;
 import com.prueba.crud.exceptions.ResourceNotFoundException;
-import com.prueba.crud.mappers.ProductMapper;
-import com.prueba.crud.product.ProductRequest;
-import com.prueba.crud.product.ProductResponse;
 import com.prueba.crud.repositories.IProductRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class ProductService {
 
-    private final IProductRepository productRepository;
-    private final ProductMapper productMapper;
+    @Autowired
+    IProductRepository productRepository;
 
-    public List<ProductResponse> getProducts() {
-        return productMapper.toResponseList(productRepository.findAll());
+    public ArrayList<ProductModel> getProducts() {
+        return (ArrayList<ProductModel>) productRepository.findAll();
     }
 
-    public ProductResponse saveProduct(ProductRequest request) {
-        ProductModel product = new ProductModel();
-        product.setName(request.name());
-        product.setQuantity(request.quantity());
-        return productMapper.toResponse(productRepository.save(product));
+    public ProductModel saveProduct(ProductModel product) {
+        return productRepository.save(product);
     }
 
-    public ProductResponse getProductById(Long id) {
-        return productRepository.findById(id)
-                .map(productMapper::toResponse)
-                .orElseThrow(() -> new ResourceNotFoundException("Product", id));
+    public Optional<ProductModel> getProductById(Long id) {
+        return productRepository.findById(id);
     }
 
-    public ProductResponse updateProductById(ProductRequest request, Long id) {
-        ProductModel product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product", id));
-        product.setName(request.name());
-        product.setQuantity(request.quantity());
-        return productMapper.toResponse(productRepository.save(product));
+    public ProductModel updateProductById(ProductModel request, Long id) {
+        ProductModel product = productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product", id));
+
+        product.setName(request.getName());
+        product.setQuantity(request.getQuantity());
+
+        return productRepository.save(product);
     }
 
     public boolean deleteProductById(Long id) {

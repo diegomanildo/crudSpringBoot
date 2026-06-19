@@ -1,46 +1,47 @@
 package com.prueba.crud.controllers;
 
+import com.prueba.crud.entities.UserModel;
 import com.prueba.crud.servicies.UserService;
-import com.prueba.crud.user.UserRequest;
-import com.prueba.crud.user.UserResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
-@RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<UserResponse>> getUsers() {
-        return ResponseEntity.ok(userService.getUsers());
+    public ArrayList<UserModel> getUsers() {
+        return userService.getUsers();
     }
 
     @PostMapping
-    public ResponseEntity<UserResponse> saveUser(@RequestBody UserRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(request));
+    public UserModel saveUser(UserModel user) {
+        return userService.saveUser(user);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.getUserById(id));
+    @GetMapping(path = "/{id}")
+    public Optional<UserModel> getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UserResponse> updateUserById(
-            @RequestBody UserRequest request, @PathVariable Long id) {
-        return ResponseEntity.ok(userService.updateUserById(request, id));
+    @PutMapping(path = "/{id}")
+    public UserModel updateUserById(@PathVariable Long id, @RequestBody UserModel user) {
+        return userService.updateUserById(user, id);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUserById(@PathVariable Long id) {
-        userService.deleteUserById(id);
-        return ResponseEntity.noContent().build();
+    @DeleteMapping(path = "/{id}")
+    public String deleteUserById(@PathVariable Long id) {
+        boolean ok = userService.deleteUserById(id);
+        if (ok) {
+            return "User with id " + id + " deleted";
+        } else {
+            return "ERROR: User with id " + id + " could not be deleted";
+        }
     }
 }
