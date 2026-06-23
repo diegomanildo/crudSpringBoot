@@ -2,6 +2,7 @@ package com.prueba.crud.controllers;
 
 import com.prueba.crud.entities.ProductModel;
 import com.prueba.crud.servicies.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,17 +22,17 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductModel saveProduct(@RequestBody ProductModel product) {
+    public ProductModel saveProduct(@Valid @RequestBody ProductModel product) {
         return productService.saveProduct(product);
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<ProductModel> getProductById(@PathVariable("id") Long id) {
+    public Optional<ProductModel> getProductById(@Valid @PathVariable("id") Long id) {
         return productService.getProductById(id);
     }
 
     @PutMapping(path = "/{id}")
-    public ProductModel updateProductById(@RequestBody ProductModel request, @PathVariable("id") Long id) {
+    public ProductModel updateProductById(@Valid @RequestBody ProductModel request, @PathVariable("id") Long id) {
         return productService.updateProductById(request, id);
     }
 
