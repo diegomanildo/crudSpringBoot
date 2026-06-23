@@ -2,6 +2,7 @@ package com.prueba.crud.controllers;
 
 import com.prueba.crud.entities.UserModel;
 import com.prueba.crud.servicies.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class UserController {
     }
 
     @PutMapping(path = "/{id}")
-    public UserModel updateUserById(@PathVariable Long id, @RequestBody UserModel user) {
+    public UserModel updateUserById(@PathVariable Long id, @Valid @RequestBody UserModel user) {
         return userService.updateUserById(user, id);
     }
 
